@@ -106,42 +106,34 @@
                 </div>
             </div>
 
-            <!-- Content -->
-            <div class="col-sm-10">
-                <div class="card p-3">
-                    <h3 class="mb-4">Add Product</h3>
-                    <form action="<?php echo site_url('Inventory/add') ?>" method="post">
-                        <div class="form-group">
-                            <label for="name">Product Name:</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="stocks">Stocks:</label>
-                            <input type="number" id="stocks" name="stocks" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category:</label>
-                            <select name="category" id="category" class="form-control" required>
-                                <option value="Groceries">Groceries</option>
-                                <option value="Drinks">Drinks</option>
-                                <option value="Food and Beverages">Food and Beverages</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="price">Price:</label>
-                            <input type="number" id="price" name="price" class="form-control" required>
-                        </div>
-                        <button class="btn btn-primary" type="submit">Add</button>
-                    </form>
-                </div>
+            <div class="col-sm-10 p-20 content">
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <td>Purchased Id</td>
+                        <td>Product Name</td>
+                        <td>Category</td>
+                        <td>Quantity</td>
+                        <td>Total</td>
+                        <td>Date</td>
+                        <td>Status</td>
+                    </tr>
+                    <?php foreach ($record as $rec): ?>
+
+                        <tr>
+                            <td><?php echo $rec->purchaseID ?></td>
+                            <td><?php echo $rec->name ?></td>
+                            <td><?php echo $rec->category ?></td>
+                            <td><?php echo $rec->quantity ?></td>
+                            <td><?php echo $rec->total ?></td>
+                            <td><?php echo $rec->date ?></td>
+                            <td><?php echo $rec->status ?></td>
+                        </tr>
+                        
+                    <?php endforeach ?>
+                </table>
             </div>
         </div>
     </div>
-        </div>
-    </div>
-
-
-
 
 </body>
 

@@ -3,9 +3,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/bootstrap/css/bootstrap.css'); ?>">
-    <link rel="stylesheet" type="text/css"
-        href="<?php echo base_url('assets/font-awesome-4.7.0/css/font-awesome.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/font-awesome-4.7.0/css/font-awesome.css'); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/style.css') ?>">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         .sidebar {
@@ -64,40 +64,40 @@
                         $location = $this->uri->segment(1);
                         ?>
                         <li class="<?php if ($location === 'Inventory') {
-                            echo 'active';
-                        } ?>">
+                                        echo 'active';
+                                    } ?>">
                             <a href="<?php echo site_url('Inventory') ?>">
                                 <i class="fa fa-cubes"></i> Manage Inventory
                             </a>
                         </li>
 
                         <li class="<?php if ($location === 'Inventory/addProd') {
-                            echo 'active';
-                        } ?>">
+                                        echo 'active';
+                                    } ?>">
                             <a href="<?php echo site_url('Inventory/addProd') ?>">
                                 <i class="fa fa-plus"></i> Add Products
                             </a>
                         </li>
 
                         <li class="<?php if ($location === 'Inventory/purchase') {
-                            echo 'active';
-                        } ?>">
+                                        echo 'active';
+                                    } ?>">
                             <a href="<?php echo site_url('Inventory/purchase') ?>">
                                 <i class="fa fa-shopping-cart"></i> Purchase Products
                             </a>
                         </li>
 
                         <li class="<?php if ($location === 'Inventory/records') {
-                            echo 'active';
-                        } ?>">
+                                        echo 'active';
+                                    } ?>">
                             <a href="<?php echo site_url('Inventory/records') ?>">
                                 <i class="fa fa-list"></i> Purchase Records
                             </a>
                         </li>
 
                         <li class="<?php if ($location === 'Inventory/back') {
-                            echo 'active';
-                        } ?>">
+                                        echo 'active';
+                                    } ?>">
                             <a href="<?php echo site_url('Inventory/back') ?>">
                                 <i class="fa fa-arrow-left"></i> Back
                             </a>
@@ -109,36 +109,71 @@
             <!-- Content -->
             <div class="col-sm-10">
                 <div class="card p-3">
-                    <h3 class="mb-4">Add Product</h3>
-                    <form action="<?php echo site_url('Inventory/add') ?>" method="post">
-                        <div class="form-group">
-                            <label for="name">Product Name:</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="stocks">Stocks:</label>
-                            <input type="number" id="stocks" name="stocks" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category:</label>
-                            <select name="category" id="category" class="form-control" required>
-                                <option value="Groceries">Groceries</option>
-                                <option value="Drinks">Drinks</option>
-                                <option value="Food and Beverages">Food and Beverages</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="price">Price:</label>
-                            <input type="number" id="price" name="price" class="form-control" required>
-                        </div>
-                        <button class="btn btn-primary" type="submit">Add</button>
-                    </form>
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search by ID or Name">
+                        <button class="btn btn-primary" type="button" id="searchBtn">Search</button>
+                        <button class="btn btn-secondary" type="button" id="resetBtn">Reset</button>
+                    <table class="table table-striped table-hover">
+                        <tr>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Stocks</td>
+                            <td>Category</td>
+                            <td>Price</td>
+                            <td colspan="2">Action</td>
+                        </tr>
+                        <?php foreach ($products as $prod) : ?>
+
+                            <tr>
+                                <td><?php echo $prod->id ?></td>
+                                <td><?php echo $prod->name ?></td>
+                                <td><?php echo $prod->stocks ?></td>
+                                <td><?php echo $prod->category ?></td>
+                                <td><?php echo $prod->price ?></td>
+                                <td>
+                                    <a href="<?php echo site_url('Inventory/addPurchase?id=' . $prod->id . '&price=' . $prod->price) ?>">
+                                        <button class="btn btn-primary sm-btn">Purchase</button>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        <?php endforeach ?>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-        </div>
     </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            const originalTableContent = $('table').html();
+
+            function filterTableRows(query) {
+                const table = $('table');
+                table.html(originalTableContent);
+                const rows = table.find('tr:not(:first-child)');
+                rows.each(function() {
+                    const id = $(this).find('td:nth-child(1)').text().toLowerCase();
+                    const name = $(this).find('td:nth-child(2)').text().toLowerCase();
+                    if (id.includes(query) || name.includes(query)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+            $('#searchBtn').on('click', function() {
+                const searchQuery = $('#searchInput').val().toLowerCase();
+                filterTableRows(searchQuery);
+            });
+            $('#resetBtn').on('click', function() {
+                $('#searchInput').val('');
+                filterTableRows('');
+            });
+        });
+    </script>
+
 
 
 

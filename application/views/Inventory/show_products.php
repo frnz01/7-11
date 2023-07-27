@@ -106,37 +106,42 @@
                 </div>
             </div>
 
-            <!-- Content -->
-            <div class="col-sm-10">
-                <div class="card p-3">
-                    <h3 class="mb-4">Add Product</h3>
-                    <form action="<?php echo site_url('Inventory/add') ?>" method="post">
-                        <div class="form-group">
-                            <label for="name">Product Name:</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="stocks">Stocks:</label>
-                            <input type="number" id="stocks" name="stocks" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category:</label>
-                            <select name="category" id="category" class="form-control" required>
-                                <option value="Groceries">Groceries</option>
-                                <option value="Drinks">Drinks</option>
-                                <option value="Food and Beverages">Food and Beverages</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="price">Price:</label>
-                            <input type="number" id="price" name="price" class="form-control" required>
-                        </div>
-                        <button class="btn btn-primary" type="submit">Add</button>
-                    </form>
-                </div>
+            <div class="col-sm-10 p-20 content">
+                <a href="<?php echo site_url('Inventory/addProd')?>">
+                    <button class="btn btn-primary sm-btn">+ Add</button>
+                </a>
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Stocks</td>
+                        <td>Category</td>
+                        <td>Price</td>
+                        <td colspan="2">Action</td>
+                    </tr>
+                    <?php foreach ($products as $prod): ?>
+
+                        <tr>
+                            <td><?php echo $prod->id ?></td>
+                            <td><?php echo $prod->name ?></td>
+                            <td><?php echo $prod->stocks ?></td>
+                            <td><?php echo $prod->category ?></td>
+                            <td><?php echo $prod->price ?></td>
+                            <td>
+                                <a href="<?php echo site_url('Inventory/showEdit?id=' . $prod->id . '&name=' . $prod->name . '&stocks=' . $prod->stocks . '&category=' . $prod->category . '&price=' . $prod->price) ?>">
+                                    <button class="btn btn-primary sm-btn">Edit</button>
+                                </a>    
+                            </td>
+                            <td>
+                                <a href="<?php echo site_url('Inventory/delete/' . $prod->id) ?>">
+                                    <button class="btn btn-primary sm-btn">Delete</button>
+                                </a>   
+                            </td>
+                        </tr>
+                        
+                    <?php endforeach ?>
+                </table>
             </div>
-        </div>
-    </div>
         </div>
     </div>
 
