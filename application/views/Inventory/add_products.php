@@ -73,7 +73,7 @@
                         <li class="<?php if ($location === 'new_item') {
                             echo 'active';
                         } ?>">
-                            <a href="<?php echo site_url('new_item') ?>">
+                            <a href="<?php echo site_url('Inventory') ?>">
                                 <i class="fa fa-plus"></i> Add Products
                             </a>
                         </li>
@@ -81,7 +81,7 @@
                         <li class="<?php if ($location === 'sales') {
                             echo 'active';
                         } ?>">
-                            <a href="<?php echo site_url('daily_sales_report') ?>">
+                            <a href="<?php echo site_url('Inventory') ?>">
                                 <i class="fa fa-shopping-cart"></i> Purchase Products
                             </a>
                         </li>
@@ -89,7 +89,7 @@
                         <li class="<?php if ($location === 'categories') {
                             echo 'active';
                         } ?>">
-                            <a href="<?php echo site_url('categories') ?>">
+                            <a href="<?php echo site_url('Inventory') ?>">
                                 <i class="fa fa-list"></i> Purchase Records
                             </a>
                         </li>
@@ -97,7 +97,7 @@
                         <li class="<?php if ($location === 'accounts') {
                             echo 'active';
                         } ?>">
-                            <a href="<?php echo site_url('accounts') ?>">
+                            <a href="<?php echo site_url('Inventory') ?>">
                                 <i class="fa fa-arrow-left"></i> Back
                             </a>
                         </li>
